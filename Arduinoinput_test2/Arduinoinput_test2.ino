@@ -58,13 +58,13 @@ void loop() {
     previousMillis = currentMillis;
 
     // if the LED is off turn it on and vice-versa:
-    if (ledState == LOW) {
-      ledState = HIGH;
+    if (sensorValue == LOW) {
+     sensorValue = HIGH;
     } else {
-      ledState = LOW;
+      sensorValue = LOW;
     }
 
     // set the LED with the ledState of the variable:
-    digitalWrite(ledPin, ledState);
+    digitalWrite(analogOutPin, sensorValue);
   }
 }
