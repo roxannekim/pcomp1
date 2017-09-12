@@ -6,8 +6,8 @@
 #include <Adafruit_NeoPixel.h>
 
 #define USE_SERIAL Serial
-#define BRIGHTNESS 100
-const int numPixels  = 144;
+#define BRIGHTNESS 255
+const int numPixels  = 64;
 const int ledPin = 14; // the pin that the LED is attached to
 float speed ;
 
@@ -86,7 +86,7 @@ void dayWhite(uint8_t wait, uint8_t mapSpeed) {
     for (uint16_t i = 0; i < strip.numPixels() +  mapSpeed ; i++) {
       strip.setBrightness(mapSpeed - abs(mapSpeed - j % mapSpeed * 2));
       strip.setPixelColor(j, 100, 250, 150);
-      //Serial.println(mapSpeed - abs(mapSpeed - j % mapSpeed * 2));
+      Serial.println(mapSpeed - abs(mapSpeed - j % mapSpeed * 2));
     }
     delay(wait);
     strip.show();

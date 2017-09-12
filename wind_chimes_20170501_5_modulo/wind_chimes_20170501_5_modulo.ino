@@ -1,5 +1,5 @@
 //NeoPixel 144
-
+//
 
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
@@ -22,7 +22,7 @@ void setup() {
 }
 
 void loop() {
-  whiteOverRainbow(1, 100, 1); // whiteSpeed * whiteLength = 60
+  whiteOverRainbow(1, 3, 40); // whiteSpeed * whiteLength(wind speed *10) = 120
 }
 
 
@@ -46,7 +46,7 @@ void whiteOverRainbow(uint8_t wait, uint8_t whiteSpeed, uint8_t whiteLength ) {
           strip.setPixelColor(i, 0, 0, 0);
         }
         else {
-          strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
+          strip.setPixelColor(i, seoul(((i * 256 / strip.numPixels()) + j) & 255));
         }
 
       }
@@ -70,14 +70,36 @@ void whiteOverRainbow(uint8_t wait, uint8_t whiteSpeed, uint8_t whiteLength ) {
   }
 }
 
-uint32_t Wheel(byte WheelPos) {
+uint32_t ny(byte WheelPos) {
   WheelPos = 255 - WheelPos;
   if (WheelPos < 62) {
-    return strip.Color(0, 100 - WheelPos%40, 100 - WheelPos%20);
+    return strip.Color(0, 150 - WheelPos%60,150 - WheelPos%30);
   }
   if (WheelPos < 124) {
-    WheelPos -= 100;
-    return strip.Color(0, 100 - WheelPos%20, 100 - WheelPos%40);
+    WheelPos -= 62;
+    return strip.Color(0, 150 - WheelPos%30, 150 - WheelPos%60);
+  }
+}
+
+uint32_t seoul(byte WheelPos) {
+  WheelPos = 255 - WheelPos;
+  if (WheelPos < 62) {
+    return strip.Color(160 - WheelPos%62,0, 140 - WheelPos%31);
+  }
+  if (WheelPos < 124) {
+    WheelPos -= 62;
+    return strip.Color(160 - WheelPos%31, 0, 140 - WheelPos%62);
+  }
+}
+
+uint32_t somewhere(byte WheelPos) {
+  WheelPos = 255 - WheelPos;
+  if (WheelPos < 62) {
+    return strip.Color(140 - WheelPos%31, 130 - WheelPos%31,200 - WheelPos%31);
+  }
+  if (WheelPos < 124) {
+    WheelPos -= 62;
+    return strip.Color(140 - WheelPos%31, 130 - WheelPos%31, 200 - WheelPos%31);
   }
 }
 
